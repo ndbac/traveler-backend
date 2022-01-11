@@ -7,15 +7,15 @@ const {
   deleteUser,
 } = require('../controllers/userController');
 
-const router = express.Router();
+const userRouter = express.Router();
 
-router.route('/')
+userRouter.route('/')
   .get(getAllUsers)
   .post(createUser);
 
-router.route('/:id')
+userRouter.route('/:id')
   .get(getUser)
   .patch(updateUser)
   .delete(deleteUser);
 
-module.exports = router;
+module.exports = userRouter;
