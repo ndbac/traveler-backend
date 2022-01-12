@@ -10,7 +10,6 @@ const tourSchema = new mongoose.Schema(
       unique: true,
       maxlength: [40, "A tour name must have less or equal than 40 characters"],
       minLength: [10, "A tour name must be at least 10 characters"],
-      // validate: [validator.isAlpha, "Tour name must only contain characters"],
     },
     slug: String,
     duration: {
@@ -92,12 +91,6 @@ tourSchema.pre("save", function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
-
-// Post middleware: Run after the .save(), .create() and any hooks
-// tourSchema.post("save", function (doc, next) {
-//   console.log("Saved all data");
-//   console.log(doc);
-// });
 
 // Query middleware
 // Regular expression for all the .find() .findOne() .findAndUpdate() ...
