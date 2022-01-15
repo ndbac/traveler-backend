@@ -1,4 +1,3 @@
-const { query } = require("express");
 const Tour = require("../model/tours");
 const APIFeatures = require("../utils/apiFeatures");
 const catchAsync = require("../utils/catchAsync");
