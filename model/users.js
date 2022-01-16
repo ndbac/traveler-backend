@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema({
     enum: ["user", "guide", "lead-guide", "admin"],
     default: "user",
   },
+  bio: String,
   password: {
     type: String,
     required: [true, "Please tell me your password"],
@@ -40,6 +41,11 @@ const userSchema = new mongoose.Schema({
   passwordChangeAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  active: {
+    type: Boolean,
+    default: true,
+    select: false,
+  },
 });
 
 // Hash password in signup
@@ -60,6 +66,12 @@ userSchema.pre("save", function (next) {
     return next();
   }
   this.passwordChangeAt = Date.now() - 1000;
+  next();
+});
+
+// Prevent unactive user login
+userSchema.pre(/^find/, function (next) {
+  this.find({ active: { $ne: false } });
   next();
 });
 
